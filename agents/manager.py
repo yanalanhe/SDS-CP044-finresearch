@@ -6,7 +6,6 @@ from crewai import Agent
 def build_manager() -> Agent:
     """
     Build the manager agent.
-
     This agent receives user request, delegates work to other agents, ensures all findings are complete and consistent, and produces the final polished report.
 
     Returns:

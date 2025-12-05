@@ -23,9 +23,16 @@ def build_financial_crew() -> Crew:
 
     crew = Crew(  
         agents=[build_financial_analyst(), build_market_researcher()],
-        tasks=[build_financial_analyst_task(), build_market_researcher_task()],        
+        tasks=[build_financial_analyst_task(), build_market_researcher_task()],
+
+        # The process hierarchical is used for the crew since the introduced manager agent is used 
+        # to coorrinate tasks delegated to the financial analyst agent and market research agent. 
+        # Both the agents work in parallel for their own assigned tasks.
+        # Technically, as specified in CewAI framework, when a manager agent is used for a crew,
+        # the process must be set as hierarchical. 
         process=Process.hierarchical,
-        manager_agent=build_manager(),   
+
+        manager_agent=build_manager(),
         verbose=True           
     )
 

@@ -5,7 +5,8 @@ langchain_openai
 
 # Tools & APIs
 yfinance              # For stock data
-duckduckgo-search     # Free search tool (good for demos vs. paid Tavily)
+#duckduckgo-search     # Free search tool (good for demos vs. paid Tavily)
+tavily-python
 python-dotenv         # For managing API keys
 
 # Utilities

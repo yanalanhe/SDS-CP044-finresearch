@@ -23,7 +23,6 @@ def get_config() -> Dict[str, Any]:
         ConfigurationError: If required API keys are missing
     """
 
-    print("_______starting get_config()______")
     # Required API keys
     openai_key = os.getenv('OPENAI_API_KEY')
     tavily_key = os.getenv('TAVILY_API_KEY')

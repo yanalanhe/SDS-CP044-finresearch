@@ -1,6 +1,6 @@
 """Lead Market Researcher agent who gathers accurate, real-time stock data and identifies key market trends."""
 
-from crewai import Agent, Task, Crew, Process
+from crewai import Agent, Task
 from crewai.tools import tool
 import yfinance as yf
 from langchain_openai import ChatOpenAI
@@ -12,8 +12,7 @@ def get_stock_price(ticker: str) -> str:
     Fetches the current stock price for a given ticker symbol.
     
     Use this tool when you need to find the current market price of a stock.
-    Input should be a valid stock ticker symbol (e.g., 'AAPL' for Apple, 
-    'TSLA' for Tesla, 'GOOGL' for Google).
+    Input should be a valid stock ticker symbol (e.g., 'AAPL' for Apple).
     
     Args:
         ticker: A stock ticker symbol (uppercase recommended)
@@ -50,7 +49,7 @@ def get_stock_info(ticker: str) -> str:
     
     Use this tool when you need background information about a company,
     such as sector, industry, market cap, or business description.
-    Input should be a valid stock ticker symbol (e.g., 'AAPL', 'MSFT').
+    Input should be a valid stock ticker symbol (e.g., 'AAPL').
     
     Args:
         ticker: A stock ticker symbol
@@ -116,7 +115,7 @@ def build_financial_analyst() -> Agent:
         
         # LLM: We use GPT-4 with temperature=0 for maximum accuracy.
         # For financial data, we want deterministic, factual responses.
-        llm=ChatOpenAI(model_name="gpt-4", temperature=0)
+        llm=ChatOpenAI(model_name="gpt-4o-mini", temperature=0)
     )
 
     return agent
@@ -136,7 +135,7 @@ def build_financial_analyst_task() -> Task:
     """
     task = Task(
        description=(
-        "Research the current market status of user given stock like Tesla (TSLA) and Apple (AAPL)\n"
+        "Research the current market status of user given stock like Apple (AAPL)\n"
         "For each stock, find:\n"
         "1. The current stock price\n"
         "2. Basic company information\n"

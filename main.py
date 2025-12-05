@@ -4,10 +4,10 @@ from config.settings import validate_config
 from agents.financial_crew import build_financial_crew
 
 def main():
-    """Main entry point."""
+    """Main entry point."""    
     crew = build_financial_crew()
-    result = crew.kickoff()
-    print(result)
+    result = crew.kickoff()    
+    #print(result)
 
 
 if __name__ == "__main__":
