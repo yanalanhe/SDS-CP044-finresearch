@@ -14,7 +14,7 @@ def get_market_data(ticker: str) -> str:
     Fetches the current market data for a given ticker symbol.
     
     Use this tool when you need to find the current market data.
-    Input should be a valid stock ticker symbol (e.g., 'AAPL' for Apple).
+    Input should be a valid user given stock ticker symbol (e.g., 'AAPL' for Apple).
     
     Args:
         ticker: A stock ticker symbol (uppercase recommended)
@@ -59,13 +59,12 @@ def build_market_researcher() -> Agent:
     Returns:
         Configured market researcher agent
     """
-    
     # Load system prompt
     prompt = load_prompt('market_researcher.md')
 
     agent = Agent(
         role="Market Researcher",
-        goal="performs market research, extracts relevant text snippet and stores results",
+        goal=f"performs market research, extracts relevant text snippet and stores results for stock",
         backstory=(prompt),
         verbose=True,
         tools=[get_market_data],
@@ -81,7 +80,7 @@ def build_market_researcher() -> Agent:
 
     return agent
 
-def build_market_researcher_task() -> Task:
+def build_market_researcher_task(inputs: dict = None) -> Task:
     """
     Build market_researcher task:
 
@@ -92,12 +91,24 @@ def build_market_researcher_task() -> Task:
     Returns:
         Configured market research task
     """
+    ticker = inputs.get("ticker") 
+    investor_mode = inputs.get("investor_mode")
+
     task = Task(
        description=(
-        "You are market researcher who performs the tasks: \n"
-        " 1 Searches markets, news, press releases, and analyst commentary\n "
-        " 2 Extracts relevant text snippets\n"
-        " 3 Stores results in vector memory"
+       f"Research the market landscape and sentiment for {ticker}.\n\n"
+        f"Investment Perspective: {investor_mode}\n\n"
+        "Your research must cover:\n"
+        "1. Recent news and press releases (last 30 days)\n"
+        "2. Analyst ratings and price targets\n"
+        "3. Market sentiment analysis\n"
+        "4. Industry trends affecting the company\n"
+        "5. Competitive positioning\n"
+        "6. Key risks and opportunities\n"
+        "7. Major upcoming events (earnings, product launches, etc.)\n\n"
+        f"Consider the {investor_mode.lower()} perspective when "
+        "highlighting key findings.\n\n"
+        "Use the available search tools to find current market information."
     ),
     expected_output=(
         "A  market research report in professional format with:\n"

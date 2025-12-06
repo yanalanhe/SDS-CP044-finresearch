@@ -17,8 +17,9 @@ def load_prompt(filename: str) -> str:
     """
     # Get the prompts directory relative to this file
     current_dir = os.path.dirname(__file__)
-    project_root = os.path.dirname(current_dir)
-    prompts_dir = os.path.join(project_root, 'prompts')
+    #project_root = os.path.dirname(current_dir)
+    #prompts_dir = os.path.join(project_root, 'prompts')
+    prompts_dir = os.path.join(current_dir, 'prompts')
 
     filepath = os.path.join(prompts_dir, filename)
 
