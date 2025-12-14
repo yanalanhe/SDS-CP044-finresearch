@@ -39,19 +39,18 @@ def build_financial_crew(inputs: dict = None) -> Crew:
     financial_analyst_task = build_financial_analyst_task(inputs)
     market_researcher_task = build_market_researcher_task(inputs)
     reporter_task = build_reporter_task(inputs, [financial_analyst_task, market_researcher_task])
+
+    # Set parallel tasks as async
+    financial_analyst_task.async_execution = True
+    market_researcher_task.async_execution = True
     
     crew = Crew(  
         agents=[financial_analyst, market_researcher, reporter],
         tasks=[financial_analyst_task, market_researcher_task, reporter_task],
-
-        # The process hierarchical is used for the crew since the introduced manager agent is used 
-        # to coorrinate tasks delegated to the financial analyst agent and market research agent. 
-        # Both the agents work in parallel for their own assigned tasks.
-        # Technically, as specified in CewAI framework, when a manager agent is used for a crew,
-        # the process must be set as hierarchical.
-        # The reporter starts producting report only when financial analyst agent and market research agent 
-        # finalyze their results and save them to vector DB (see build_reporter_task)
-        process=Process.hierarchical,
+      
+        # Both financial_analyst, market_researcher run parallem/async 
+        # as their tasks set aync_execution, even process set as sequential here
+        process=Process.sequential,
 
         manager_agent=build_manager(inputs),
         verbose=True           

@@ -50,7 +50,9 @@ def build_financial_analyst() -> Agent:
         
         # LLM: We use GPT-4 with temperature=0 for maximum accuracy.
         # For financial data, we want deterministic, factual responses.
-        llm=ChatOpenAI(model_name="gpt-4o-mini", temperature=0)
+        llm=ChatOpenAI(model_name="gpt-4o-mini", temperature=0),
+
+        max_iter=10
     )
 
     return agent

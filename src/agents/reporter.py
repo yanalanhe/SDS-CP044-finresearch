@@ -96,9 +96,12 @@ def build_reporter_task(inputs: dict = None, context: list = None) -> Task:
             "Full Report (Markdown)\n"
         ),        
         agent=build_reporter(),
-        # The outputs from financial analyst and market researcher will be used
-        # as a context for this task
-        context=context
+
+        # Use outputs of tasks from financial_analyst and market_researcher   
+        context=context,
+
+        # Wait for financial analyst and market researcher compplete their tasks
+        async_execution=False 
     )
 
     return task

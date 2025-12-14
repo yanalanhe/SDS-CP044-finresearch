@@ -103,6 +103,10 @@ def render_financial_indicators(indicators: dict):
     """Render the financial indicators tab."""
     
     st.header("Financial Indicators")
+
+    print("indicators " * 3 + "\n")
+    print(indicators)
+    print("indicators " * 3 + "\n")
     
     # Valuation Metrics
     st.subheader("📈 Valuation Metrics")
@@ -113,9 +117,10 @@ def render_financial_indicators(indicators: dict):
     with col2:
         st.metric("PEG Ratio", indicators.get("peg_ratio", "N/A"))
     with col3:
-        st.metric("P/B Ratio", indicators.get("pb_ratio", "N/A"))
-    with col4:
-        st.metric("EV/EBITDA", indicators.get("ev_ebitda", "N/A"))
+        #st.metric("P/B Ratio", indicators.get("pb_ratio", "N/A"))
+        st.metric("Debt/Equity", indicators.get("debt_to_equity", "N/A"))
+    #with col4:
+        #st.metric("EV/EBITDA", indicators.get("ev_ebitda", "N/A"))
     
     st.divider()
     

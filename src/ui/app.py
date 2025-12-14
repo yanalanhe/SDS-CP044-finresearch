@@ -46,7 +46,7 @@ def main():
         user_inputs = render_input_form()
         
         # Run Analysis Button
-        if st.button("🚀 Run Analysis", type="primary", width=True):
+        if st.button("🚀 Run Analysis", type="primary", use_container_width=True):
             run_analysis(user_inputs)
 
     #print("st.session_state.analysis_complete" + "\n")

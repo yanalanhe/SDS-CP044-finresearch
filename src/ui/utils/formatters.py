@@ -152,7 +152,7 @@ def extract_financial_indicators(report_data: dict) -> dict:
     pe_ratio = valuation_ratios.get("P/E Ratio", "N/A")
     peg_ratio = valuation_ratios.get("PEG Ratio", "N/A")
     pb_ratio = valuation_ratios.get("P/B Ratio", "N/A")
-    debt_to_equity = valuation_ratios.get("Debt/Equity", "N/A")
+    debt_to_equity = valuation_ratios.get("Debt/Equity Ratio", "N/A")
     
     # Extract profitability ratios
     profitability_ratios = financial_indicators.get("Profitability Ratios", {})

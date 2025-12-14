@@ -5,8 +5,6 @@ import sys
 from crewai import Agent, Task
 from crewai.tools import tool
 import yfinance as yf
-from config.settings import get_config
-from tavily import TavilyClient
 from langchain_openai import ChatOpenAI
 from .base import load_prompt
 
@@ -16,51 +14,8 @@ sys.path.insert(0, str(tools_dir))
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
+from src.tools import financial_tools
 from src.tools.memory_tools import MemoryTools
-
-@tool("Get Market Data")
-def get_market_data(ticker: str) -> str:
-    """
-    Fetches the current market data for a given ticker symbol.
-    
-    Use this tool when you need to find the current market data.
-    Input should be a valid user given stock ticker symbol (e.g., 'AAPL' for Apple).
-    
-    Args:
-        ticker: A stock ticker symbol (uppercase recommended)
-    
-    Returns:
-        A string with the current market data or an error message
-    """
-    try:
-        config = get_config()
-
-        ticker = ticker.strip().upper()
-        tavily_client = TavilyClient(config['tavily_api_key'])
-        market_query = f"Bring up some of the latest market data for stock {ticker}"
-
-        search_response = tavily_client.search(market_query)
-        print("Tavily search result:::::::" + "\n")
-        print(search_response)
-        print("Tavily search result:::::::" + "\n")
-        
-        market_data = ""
-        for result in search_response["results"]:
-            market_data += f"### {result['title']}\n\n{result['content']}\n\n"
-       
-        print("=" * 70)
-        print(market_data)
-        print("=" * 70 + "\n")
-
-        return f"""
-            The current market data for ({ticker})\n
-            {market_data}
-            """
-        
-    except Exception as e:
-        # GRACEFUL DEGRADATION: Return useful error info instead of crashing
-        return f"Error fetching market data for '{ticker}': {str(e)}. Please check the ticker symbol."
-
 
 def build_market_researcher() -> Agent:
     """
@@ -79,7 +34,7 @@ def build_market_researcher() -> Agent:
         goal=f"performs market research, extracts relevant text snippet and stores results for stock. Save results to memory",
         backstory=(prompt),
         verbose=True,
-        tools=[get_market_data, MemoryTools.save_finding],
+        tools=[financial_tools.get_market_data, MemoryTools.save_finding],
 
         # ALLOW DELEGATION: Set to False because we want this agent to do the
         # research itself, not delegate to the writer (who has no tools anyway).
@@ -87,7 +42,9 @@ def build_market_researcher() -> Agent:
         
        # LLM: We use temperature=0.7 for more creative, engaging writing
         # while still maintaining coherence and accuracy.
-        llm=ChatOpenAI(model_name="gpt-4o-mini", temperature=0.7)
+        llm=ChatOpenAI(model_name="gpt-4o-mini", temperature=0.7),
+
+        #max_iter=15
     )
 
     return agent

@@ -27,6 +27,8 @@ def build_manager(inputs: dict = None) -> Agent:
         ),
         verbose=True,
         allow_delegation=True,      # Allow delegation to other agents
+
+        max_iter=5
     )
 
     return agent

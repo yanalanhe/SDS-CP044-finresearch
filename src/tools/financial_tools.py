@@ -1,5 +1,7 @@
 from crewai.tools import tool
+from config.settings import get_config
 import yfinance as yf
+from tavily import TavilyClient
 
 @tool("Get Stock Price")
 def get_stock_price(ticker: str) -> str:
@@ -27,9 +29,9 @@ def get_stock_price(ticker: str) -> str:
             return f"No data available for ticker '{ticker}'. Please verify the ticker symbol is correct."
         
         price = history['Close'].iloc[-1]
-        print(f"---------stock price of {ticker}" + "\n")        
+        #print(f"stock price of {ticker}" + "\n")        
         print(price)
-        print(f"---------stock price of {ticker}" + "\n")
+        #print(f"stock price of {ticker}" + "\n")
     
         
         # CONTEXT ENRICHMENT: Return additional useful information
@@ -76,3 +78,45 @@ def get_stock_info(ticker: str) -> str:
         )
     except Exception as e:
         return f"Error fetching info for '{ticker}': {str(e)}"
+
+@tool("Get Market Data")
+def get_market_data(ticker: str) -> str:
+    """
+    Fetches the current market data for a given ticker symbol.
+
+    Use this tool when you need to find the current market data.
+    Input should be a valid user given stock ticker symbol (e.g., 'AAPL' for Apple).
+
+    Args:
+    ticker: A stock ticker symbol (uppercase recommended)
+
+    Returns:
+    A string with the current market data or an error message
+    """
+    try:        
+        config = get_config()
+        ticker = ticker.strip().upper()
+        tavily_client = TavilyClient(config['tavily_api_key'])
+        market_query = f"Bring up some of the latest market data for stock {ticker}"
+
+        search_response = tavily_client.search(market_query)
+        print("Tavily search result:::::::" + "\n")
+        print(search_response)
+        print("Tavily search result:::::::" + "\n")
+
+        market_data = ""
+        for result in search_response["results"]:
+            market_data += f"### {result['title']}\n\n{result['content']}\n\n"
+
+        print("=" * 70)
+        print(market_data)
+        print("=" * 70 + "\n")
+
+        return f"""
+            The current market data for ({ticker})\n
+            {market_data}
+            """
+    
+    except Exception as e:
+        # GRACEFUL DEGRADATION: Return useful error info instead of crashing
+        return f"Error fetching market data for '{ticker}': {str(e)}. Please check the ticker symbol."
