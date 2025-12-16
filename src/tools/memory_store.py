@@ -48,9 +48,9 @@ class FinancialMemory:
             text: The actual content (e.g., news snippet).
             metadata: Extra info (e.g., {'source': 'Bloomberg', 'ticker': 'AAPL'})
         """
-        print("dbsavecontext" * 3 + "\n")
-        print(text)
-        print("dbsavecontext" * 3 + "\n")
+        #print("db save_context " * 3 + "\n")
+        #print(text)
+        #print("db save_context " * 3 + "\n")
 
         # We need a unique ID for every entry. We can generate one based on the count.
         # In a real app, use UUIDs. Here, simplistic counting works for demos.

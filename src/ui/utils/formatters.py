@@ -149,17 +149,26 @@ def extract_financial_indicators(report_data: dict) -> dict:
     
     # Extract valuation ratios
     valuation_ratios = financial_indicators.get("Valuation Ratios", {})
-    pe_ratio = valuation_ratios.get("P/E Ratio", "N/A")
-    peg_ratio = valuation_ratios.get("PEG Ratio", "N/A")
-    pb_ratio = valuation_ratios.get("P/B Ratio", "N/A")
-    debt_to_equity = valuation_ratios.get("Debt/Equity Ratio", "N/A")
+    if isinstance(valuation_ratios, dict):
+        pe_ratio = valuation_ratios.get("P/E Ratio", "N/A")
+        peg_ratio = valuation_ratios.get("PEG Ratio", "N/A")
+        pb_ratio = valuation_ratios.get("P/B Ratio", "N/A")
+        debt_to_equity = valuation_ratios.get("Debt/Equity Ratio", "N/A")
     
     # Extract profitability ratios
     profitability_ratios = financial_indicators.get("Profitability Ratios", {})
-    revenue_growth = profitability_ratios.get("Revenue Growth YoY", "N/A")
-    eps_growth = profitability_ratios.get("EPS Growth YoY", "N/A")
-    last_quarter_eps = profitability_ratios.get("Last Quarter EPS", "N/A")
-    revenue_last_year = profitability_ratios.get("Revenue Last Year", "N/A")
+    revenue_growth = profitability_ratios.get("Revenue Growth YoY") or \
+                     profitability_ratios.get("Revenue Growth (YoY)") or \
+                     profitability_ratios.get("Revenue Growth")
+    
+    eps_growth = profitability_ratios.get("EPS Growth (YoY)") or \
+                 profitability_ratios.get("EPS Growth YoY") or \
+                 profitability_ratios.get("EPS Growth")
+    last_quarter_eps = profitability_ratios.get("Last Quarter EPS") or \
+                       profitability_ratios.get("Last Quarter") or \
+                       profitability_ratios.get("EPS (Last Quarter)") 
+    revenue_last_year = profitability_ratios.get("Revenue Last Year") or \
+                        profitability_ratios.get("Revenue Last Year") 
     
     # Build growth data
     growth_data = []
@@ -221,14 +230,13 @@ def extract_news_sentiment(report_data: dict) -> dict:
     Returns:
         dict: News items and sentiment analysis
     """
-    
     news_sentiment_data = report_data.get("News & Sentiment", {})
-    
-    # Extract recent news
-    recent_news = news_sentiment_data.get("Recent News", [])
-    
-    # Extract sentiment
-    sentiment_text = news_sentiment_data.get("Sentiment", "")
+    if isinstance(news_sentiment_data, dict):
+        news_sentiment_data = report_data.get("News & Sentiment", {})    
+         # Extract recent news
+        recent_news = news_sentiment_data.get("Recent News", [])    
+        # Extract sentiment
+        sentiment_text = news_sentiment_data.get("Sentiment", "")
     
     # Parse sentiment
     sentiment_score = 0.0
@@ -372,7 +380,12 @@ def determine_recommendation(exec_summary: str, report_data: dict) -> str:
     
     # Check sentiment
     news_sentiment = report_data.get("News & Sentiment", {})
-    sentiment_text = news_sentiment.get("Sentiment", "").lower()
+    if isinstance(news_sentiment, dict):
+        sentiment_text = news_sentiment.get("Sentiment", "").lower()
+    elif isinstance(news_sentiment, str):
+        sentiment_text = news_sentiment
+    else:
+        sentiment_text = "N/A"
     
     # Strong buy signals
     if "strong buy" in text_lower or "strong buy" in sentiment_text:

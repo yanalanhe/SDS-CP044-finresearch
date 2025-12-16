@@ -52,7 +52,7 @@ def build_financial_analyst() -> Agent:
         # For financial data, we want deterministic, factual responses.
         llm=ChatOpenAI(model_name="gpt-4o-mini", temperature=0),
 
-        max_iter=10
+        #max_iter=10
     )
 
     return agent
@@ -80,7 +80,7 @@ def build_financial_analyst_task(inputs: dict = None) -> Task:
             f"Investment Perspective: {investor_mode}\n\n"
             "Your analysis must include:\n"
             "- Fetch stock price and stock info\n"
-            "- Key valuation metrics (P/E, PEG, Debt/Equity)\n"
+            "- Key valuation metrics (P/E, PEG, Debt/Equity, ROE, ROA)\n"
             "- Growth metrics (revenue growth, EPS growth)\n"
             "- Risk flags (LLM-estimated)\n"
             "- Save results in vector database\n\n"             

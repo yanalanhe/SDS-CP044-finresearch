@@ -17,9 +17,9 @@ class MemoryTools:
             content: The fact or text to remember.
             source: Where it came from (e.g. 'Yahoo Finance', 'News Article').
         """
-        print("dbsave" * 10 + "\n")
-        print(content)
-        print("dbsave" * 10 + "\n")
+        #print("dbsave" * 10 + "\n")
+        #print(content)
+        #print("dbsave" * 10 + "\n")
 
         # We define a metadata dictionary
         meta = {"source": source}

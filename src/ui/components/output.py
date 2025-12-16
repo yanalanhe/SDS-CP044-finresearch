@@ -144,7 +144,7 @@ def render_financial_indicators(indicators: dict):
     
     if indicators.get("growth_data"):
         df = pd.DataFrame(indicators["growth_data"])
-        st.dataframe(df, width=True)
+        st.dataframe(df, use_container_width=True) #st.dataframe(df, width=True)        
     else:
         st.info("No growth data available")
     

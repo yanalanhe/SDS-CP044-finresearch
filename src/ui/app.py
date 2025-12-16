@@ -95,7 +95,7 @@ def run_analysis(user_inputs: dict):
     """
     try:
         # Show progress
-        with st.spinner("🤖 AI Agents are analyzing... This may take a few minutes."):
+        with st.spinner("🤖 AI Agents are analyzing... This may take about one minute."):
             progress_bar = st.progress(0)
             status_text = st.empty()
             
@@ -123,9 +123,9 @@ def run_analysis(user_inputs: dict):
             
             # Execute the crew
             result = crew.kickoff()
-            print("crew_result" * 7)
-            print(result)
-            print("crew_result" * 70 + "\n")
+            #print("crew_result" * 7)
+            #print(result)
+            #print("crew_result" * 70 + "\n")
             
             # Update progress
             status_text.text("Formatting results...")
@@ -134,9 +134,9 @@ def run_analysis(user_inputs: dict):
             # Parse and structure the output           
             structured_results = parse_crew_output(result, user_inputs)
 
-            print("structured_results" * 3)           
-            print(structured_results)
-            print("structured_results" * 70 + "\n")
+            #print("structured_results" * 3)           
+            #print(structured_results)
+            #print("structured_results" * 70 + "\n")
             
             # Update progress
             progress_bar.progress(100)
@@ -194,7 +194,7 @@ def render_welcome_screen():
         - **Bullish Mode**: Growth-focused perspective
         - **Bearish Mode**: Risk-focused perspective
         
-        Analysis typically takes 2-5 minutes depending on complexity.
+        Analysis typically takes around 60 seconds depending on complexity.
         """)
         
         # Example tickers
