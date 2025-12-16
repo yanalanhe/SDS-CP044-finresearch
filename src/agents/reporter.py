@@ -101,7 +101,7 @@ def build_reporter_task(inputs: dict = None, context: list = None) -> Task:
         context=context,
 
         # Wait for financial analyst and market researcher compplete their tasks
-        async_execution=False 
+        #async_execution=False 
     )
 
     return task

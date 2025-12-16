@@ -150,23 +150,33 @@ def extract_financial_indicators(report_data: dict) -> dict:
     # Extract valuation ratios
     valuation_ratios = financial_indicators.get("Valuation Ratios", {})
     if isinstance(valuation_ratios, dict):
-        pe_ratio = valuation_ratios.get("P/E Ratio", "N/A")
+        pe_ratio = valuation_ratios.get("P/E Ratio", "N/A") or valuation_ratios.get("PEG_Ratio", "N/A")
         peg_ratio = valuation_ratios.get("PEG Ratio", "N/A")
         pb_ratio = valuation_ratios.get("P/B Ratio", "N/A")
-        debt_to_equity = valuation_ratios.get("Debt/Equity Ratio", "N/A")
+        debt_to_equity = valuation_ratios.get("Debt/Equity Ratio", "N/A") or \
+                         valuation_ratios.get("Debt_to_Equity_Ratio", "N/A")
     
     # Extract profitability ratios
-    profitability_ratios = financial_indicators.get("Profitability Ratios", {})
+    profitability_ratios = financial_indicators.get("Profitability Ratios", {}) or \
+                        financial_indicators.get("Profitability Ratios and Growth", {})
     revenue_growth = profitability_ratios.get("Revenue Growth YoY") or \
                      profitability_ratios.get("Revenue Growth (YoY)") or \
+                     profitability_ratios.get("Revenue_Growth_YoY") or \
                      profitability_ratios.get("Revenue Growth")
     
     eps_growth = profitability_ratios.get("EPS Growth (YoY)") or \
                  profitability_ratios.get("EPS Growth YoY") or \
+                 profitability_ratios.get("EPS_Growth_YoY") or \
                  profitability_ratios.get("EPS Growth")
+
+    roe = profitability_ratios.get("Return on Equity (ROE)")
+
+    roa = profitability_ratios.get("Return on Assets (ROA)")
+
     last_quarter_eps = profitability_ratios.get("Last Quarter EPS") or \
                        profitability_ratios.get("Last Quarter") or \
-                       profitability_ratios.get("EPS (Last Quarter)") 
+                       profitability_ratios.get("EPS (Last Quarter)")
+
     revenue_last_year = profitability_ratios.get("Revenue Last Year") or \
                         profitability_ratios.get("Revenue Last Year") 
     
@@ -199,8 +209,8 @@ def extract_financial_indicators(report_data: dict) -> dict:
         # Profitability metrics
         "revenue_growth": str(revenue_growth),
         "eps_growth": str(eps_growth),
-        "roe": "N/A",
-        "roa": "N/A",
+        "roe": str(roe),
+        "roa": str(roa),
         "profit_margin": "N/A",
         "operating_margin": "N/A",
         
@@ -237,6 +247,8 @@ def extract_news_sentiment(report_data: dict) -> dict:
         recent_news = news_sentiment_data.get("Recent News", [])    
         # Extract sentiment
         sentiment_text = news_sentiment_data.get("Sentiment", "")
+    elif isinstance(news_sentiment_data, str):
+        sentiment_text = news_sentiment_data    
     
     # Parse sentiment
     sentiment_score = 0.0
