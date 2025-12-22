@@ -208,11 +208,11 @@ def extract_financial_indicators(report_data: dict) -> dict:
             "metric": "EPS Growth (YoY)",
             "value": eps_growth if isinstance(eps_growth, str) else f"{eps_growth}%"
         })
-    if last_quarter_eps != "N/A":
+    """     if last_quarter_eps != "N/A":
         growth_data.append({
             "metric": "Last Quarter EPS",
             "value": f"${last_quarter_eps}" if isinstance(last_quarter_eps, (int, float)) else last_quarter_eps
-        })
+        }) """
     
     return {
         # Valuation metrics

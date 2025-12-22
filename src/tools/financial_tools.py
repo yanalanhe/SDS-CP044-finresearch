@@ -117,7 +117,7 @@ def get_stock_info(ticker: str) -> str:
             'shareholder_equity': info.get('totalStockholderEquity', 'N/A'),
 
             'revenue_growth': info.get('revenueGrowth', 'N/A'),
-            'revenue_growth': info.get('revenueGrowth', 'N/A'),
+            'eps_growth': info.get('trailingEps', 'N/A'),
             
             # Other metrics
             'profit_margin': info.get('profitMargins', 'N/A'),
