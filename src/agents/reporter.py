@@ -98,6 +98,8 @@ def build_reporter_task(inputs: dict = None, context: list = None) -> Task:
             "'Debt-to-Equity': value or 'N/A'\n"
             "'ROE': value or 'N/A'\n"
             "'ROA': value or 'N/A'\n"
+            "'Revenue Growth': value or 'N/A'\n"
+            "'EPS Growth': value or 'N/A'\n"
             "News & Sentiment\n"
             "Risks & Opportunities\n"
             "Full Report (Markdown)\n\n"

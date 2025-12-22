@@ -160,21 +160,25 @@ def extract_financial_indicators(report_data: dict) -> dict:
         peg_ratio = valuation_ratios.get("PEG Ratio", "N/A")
         pb_ratio = valuation_ratios.get("P/B Ratio", "N/A")
         #debt_to_equity = valuation_ratios.get("Debt/Equity Ratio", "N/A") or \
-        #                valuation_ratios.get("Debt-to-Equity", "N/A")
+        #                valuation_ratios.get("Debt-to-Equity", "N/A")Revenue Growt
         debt_to_equity = valuation_ratios.get("Debt-to-Equity", "N/A")
     
     # Extract profitability ratios
     profitability_ratios = financial_indicators.get("Profitability Ratios", {}) or \
                         financial_indicators.get("Profitability Ratios and Growth", {})
-    revenue_growth = profitability_ratios.get("Revenue Growth YoY") or \
+    """ revenue_growth = profitability_ratios.get("Revenue Growth (YoY %)") or \
                      profitability_ratios.get("Revenue Growth (YoY)") or \
                      profitability_ratios.get("Revenue_Growth_YoY") or \
-                     profitability_ratios.get("Revenue Growth")
+                     profitability_ratios.get("Revenue Growth") or \
+                     profitability_ratios.get("Revenue Growth YoY") """
+    revenue_growth = profitability_ratios.get("Revenue Growth")
     
-    eps_growth = profitability_ratios.get("EPS Growth (YoY)") or \
+    """     eps_growth = profitability_ratios.get("EPS Growth (YoY %)") or \
                  profitability_ratios.get("EPS Growth YoY") or \
                  profitability_ratios.get("EPS_Growth_YoY") or \
-                 profitability_ratios.get("EPS Growth")
+                 profitability_ratios.get("EPS Growth") or \
+                 profitability_ratios.get("EPS Growth (YoY)") """
+    eps_growth = profitability_ratios.get("EPS Growth")
 
     roe = profitability_ratios.get("Return on Equity (ROE)") or \
           profitability_ratios.get("ROE")

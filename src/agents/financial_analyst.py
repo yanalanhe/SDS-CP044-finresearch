@@ -89,8 +89,8 @@ def build_financial_analyst_task(inputs: dict = None) -> Task:
             "✓ Debt-to-Equity Ratio\n"
             "✓ ROE (Return on Equity) - REQUIRED\n"
             "✓ ROA (Return on Assets) - REQUIRED\n"
-            "✓ Revenue Growth (YoY %)\n"
-            "✓ EPS Growth (YoY %)\n"
+            "✓ Revenue Growth\n"
+            "✓ EPS Growth\n"
             "✓ Profit Margin\n"
             "✓ Operating Margin\n\n"
             "STEP 3: Validation\n"
@@ -109,7 +109,7 @@ def build_financial_analyst_task(inputs: dict = None) -> Task:
             "4. If calculation impossible, mark as 'Data not available from source'\n"
         ),
      expected_output=(
-            "A structured JSON report containing ALL required metrics:\n"
+            "A structured JSON report containing ALL required financial metrics:\n"
             "{\n"
             "  'ticker': 'TICKER',\n"
             "  'current_price': value,\n"
@@ -119,7 +119,7 @@ def build_financial_analyst_task(inputs: dict = None) -> Task:
             "  'roe': value or 'N/A (with reason)',\n"
             "  'roa': value or 'N/A (with reason)',\n"
             "  'revenue_growth': value or 'N/A',\n"
-            "  'eps_growth': value or 'N/A',\n"
+            "  'eps_growth': value or 'N/A',\n"         
             "  'profit_margin': value or 'N/A',\n"
             "  'operating_margin': value or 'N/A',\n"
             "  'analysis_timestamp': 'ISO timestamp',\n"

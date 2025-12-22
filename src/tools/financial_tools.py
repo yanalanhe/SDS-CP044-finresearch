@@ -81,12 +81,12 @@ def get_stock_info(ticker: str) -> str:
         print(f"ROA: ${info.get('returnOnAssets', 0):.2f}" + "\n")
 
         # Extract and round P/E ratio to 2 decimal places
-        trailing_pe = info.get('trailingPE')
+        """    trailing_pe = info.get('trailingPE')
         if trailing_pe is not None and isinstance(trailing_pe, (int, float)):
             trailing_pe = round(trailing_pe, 2)
         else:
             trailing_pe = 'N/A'
-        print(f"trailing_pe: ${trailing_pe}")        
+        print(f"trailing_pe: ${trailing_pe}")    """     
         
         # BUILD A STRUCTURED RESPONSE
         # We return key metrics that would be useful for a financial analyst
@@ -115,12 +115,14 @@ def get_stock_info(ticker: str) -> str:
             'net_income': info.get('netIncomeToCommon', 'N/A'),
             'total_assets': info.get('totalAssets', 'N/A'),
             'shareholder_equity': info.get('totalStockholderEquity', 'N/A'),
+
+            'revenue_growth': info.get('revenueGrowth', 'N/A'),
+            'revenue_growth': info.get('revenueGrowth', 'N/A'),
             
             # Other metrics
             'profit_margin': info.get('profitMargins', 'N/A'),
             'operating_margin': info.get('operatingMargins', 'N/A'),
-            'revenue_growth': info.get('revenueGrowth', 'N/A'),
-            
+           
             # Full info for agent to explore
             'full_info': info
         }
