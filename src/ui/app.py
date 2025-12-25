@@ -54,33 +54,15 @@ def main():
         "⚠️ **Disclaimer:** This tool is for informational purposes only and does not constitute financial advice. "
         "The information provided should not be relied upon as a substitute for professional financial advice. "
         "Always consult with a qualified financial advisor before making investment decisions."
-    )
+    )    
+ 
     
-    #print("st.session_state.analysis_complete" + "\n")
-    #print(st.session_state.analysis_complete)
-    #print("st.session_state.analysis_completen" + "\n")
-
-    #print("st.session_state.analysis_results" + "\n")
-    #print(st.session_state.analysis_results)
-    #print("st.session_state.analysis_results" + "\n")
-    
-    analysis_complete = st.session_state.get("analysis_complete", False)
-    #print("analysis_complete" + "\n")
-    #print(analysis_complete)
-    #print("analysis_complete" + "\n")
-
+    analysis_complete = st.session_state.get("analysis_complete", False) 
     # Main content area
     if st.session_state.get("analysis_complete", False):
-        #print("!!!!!!!!!!!!!!!!!!!!!!\n")
-
-        #print("analysis_complete if analysis_complete" + "\n")
-        #print(analysis_complete)
-        #print("analysis_complete" + "\n")
-
-        #print("st.session_state.get('analysis_results')" + "\n")
+      
         analysis_results_from_get = st.session_state.get("analysis_results")
-        #print(analysis_results_from_get)
-        #print("st.session_state.get('analysis_results')" + "\n")
+       
         
         # Display results in tabs
         render_output_tabs(st.session_state.get("analysis_results"))
@@ -129,10 +111,7 @@ def run_analysis(user_inputs: dict):
             progress_bar.progress(60)
             
             # Execute the crew
-            result = crew.kickoff()
-            #print("crew_result" * 7)
-            #print(result)
-            #print("crew_result" * 70 + "\n")
+            result = crew.kickoff()         
             
             # Update progress
             status_text.text("Formatting results...")

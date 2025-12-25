@@ -28,10 +28,6 @@ def update_analysis_state(results: dict):
     st.session_state.analysis_complete = True
     st.session_state.analysis_results = results
 
-    #print("results" * 7 + "\n")
-    #print(results)
-    #print("results" * 7 + "\n")
-    
     # Add to history
     st.session_state.analysis_history.append({
         "ticker": results.get("ticker"),

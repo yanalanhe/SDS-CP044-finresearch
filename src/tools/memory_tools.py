@@ -16,10 +16,7 @@ class MemoryTools:
         Args:
             content: The fact or text to remember.
             source: Where it came from (e.g. 'Yahoo Finance', 'News Article').
-        """
-        #print("dbsave" * 10 + "\n")
-        #print(content)
-        #print("dbsave" * 10 + "\n")
+        """       
 
         # We define a metadata dictionary
         meta = {"source": source}
@@ -34,10 +31,7 @@ class MemoryTools:
         about a company or topic.
         Args:
             query: The topic you are looking for (e.g. 'Tesla Q3 earnings').
-        """
-        #print("dbquery" * 10 + "\n")
-        #print(query)
-        #print("dbsave" * 10 + "\n")
+        """      
 
         results = memory_db.query_memory(query)
         if not results:

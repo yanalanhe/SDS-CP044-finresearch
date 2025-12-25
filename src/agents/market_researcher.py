@@ -40,17 +40,10 @@ def get_market_data(ticker: str) -> str:
         market_query = f"Bring up some of the latest market data for stock {ticker}"
 
         search_response = tavily_client.search(market_query)
-        print("Tavily search result:::::::" + "\n")
-        print(search_response)
-        print("Tavily search result:::::::" + "\n")
-        
+      
         market_data = ""
         for result in search_response["results"]:
-            market_data += f"### {result['title']}\n\n{result['content']}\n\n"
-       
-        print("=" * 70)
-        print(market_data)
-        print("=" * 70 + "\n")
+            market_data += f"### {result['title']}\n\n{result['content']}\n\n"    
 
         return f"""
             The current market data for ({ticker})\n

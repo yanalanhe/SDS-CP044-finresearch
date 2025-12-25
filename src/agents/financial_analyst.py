@@ -78,10 +78,10 @@ def build_financial_analyst_task(inputs: dict = None) -> Task:
        description=(
             f"Conduct a comprehensive financial analysis of {ticker}.\n\n"
             f"Investment Perspective: {investor_mode}\n\n"
-            "⚠️ CRITICAL REQUIREMENTS - ALL metrics must be obtained:\n\n"
+            "⚠️ CRITICAL REQUIREMENTS - ALL financial metrics must be obtained:\n\n"
             "STEP 1: Fetch Data\n"
             f"- Use get_stock_price tool to fetch current price for {ticker}\n"
-            f"- Use get_stock_info tool to fetch company information for {ticker}\n\n"
+            f"- Use get_stock_info tool to fetch company information including financial metrics for {ticker}\n\n"
             "STEP 2: Extract/Calculate Required Metrics (ALL are mandatory):\n"
             "✓ Current Stock Price\n"
             "✓ P/E Ratio (Price-to-Earnings)\n"

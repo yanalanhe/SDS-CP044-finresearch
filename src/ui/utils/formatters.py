@@ -65,29 +65,23 @@ def extract_executive_summary(report_data: dict) -> dict:
         
     Returns:
         dict: Executive summary with key metrics
-    """
-    #print("report_data" * 3)
-    #print(report_data)
-    #print("report_data" * 3 + "\n")
+    """  
     
     exec_summary_text = report_data.get("Executive Summary", "")
-    financial_indicators = report_data.get("Financial Indicators", {})
-    #print("financial_indicators" * 3)
-    #print(report_data)
-    #print("financial_indicators" * 3 + "\n")
+    financial_indicators = report_data.get("Financial Indicators", {})  
     
     # Extract price information
     price_movements = financial_indicators.get("Price Movements", {})
-    current_price = price_movements.get("Current Price", "N/A")
-    #print("current_price" * 3)
-    #print(current_price)
-    #print("current_price" * 3 + "\n")
+    current_price = price_movements.get("Current Price", "N/A")   
     
     # Format current price
-    if isinstance(current_price, (int, float)):
-        current_price_str = f"${current_price:.2f}"
-    else:
-        current_price_str = str(current_price)
+    if current_price:
+        if isinstance(current_price, (int, float)):
+            current_price_str = f"${current_price:.2f}"
+        else:
+            current_price_str = str(current_price)
+    if isinstance(price_movements, str):
+        current_price_str = price_movements
     
     # Calculate price change
     monthly_return = price_movements.get("Monthly Return", 0)

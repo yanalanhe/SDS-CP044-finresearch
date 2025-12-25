@@ -73,13 +73,11 @@ def get_stock_info(ticker: str) -> str:
         ticker = ticker.strip().upper()
         stock = yf.Ticker(ticker)
         info = stock.info
-        print(f"stock info of {ticker}"  + "\n")        
-        print(info)        
-        print(f"stock info of {ticker}" + "\n")
+        #print(f"stock info of {ticker}"  + "\n")        
+        #print(info)        
+        #print(f"stock info of {ticker}" + "\n")
 
-        print(f"ROE: ${info.get('returnOnEquity', 0):.2f}" + "\n")
-        print(f"ROA: ${info.get('returnOnAssets', 0):.2f}" + "\n")
-
+      
         # Extract and round P/E ratio to 2 decimal places
         """    trailing_pe = info.get('trailingPE')
         if trailing_pe is not None and isinstance(trailing_pe, (int, float)):
@@ -125,10 +123,7 @@ def get_stock_info(ticker: str) -> str:
            
             # Full info for agent to explore
             'full_info': info
-        }
-        print("stock_info" * 3 + "\n")
-        print(stock_info)
-        print("stock_info" * 3 + "\n")
+        }     
 
         return stock_info       
     except Exception as e:
@@ -155,17 +150,13 @@ def get_market_data(ticker: str) -> str:
         market_query = f"Bring up some of the latest market data for stock {ticker}"
 
         search_response = tavily_client.search(market_query)
-        print("Tavily search result:" + "\n")
-        print(search_response)
-        print("Tavily search result:" + "\n")
+        #print("Tavily search result:" + "\n")
+        #print(search_response)
+        #print("Tavily search result:" + "\n")
 
         market_data = ""
         for result in search_response["results"]:
             market_data += f"### {result['title']}\n\n{result['content']}\n\n"
-
-        print("market_data:" * 7)
-        print(market_data)
-        print("market_data:" * 7 + "\n")
 
         return f"""
             The current market data for ({ticker})\n
