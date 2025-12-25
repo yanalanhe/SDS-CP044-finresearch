@@ -50,29 +50,54 @@ FinResearch AI will:
 
 ```
 FinResearch-AI/
-├── beginner/
-│   ├── README.md
-│   ├── REPORT.md
-│   └── submissions/
-│       ├── team-members/
-│       └── community-contributions/
-│
-├── advanced/
-│   ├── README.md
-│   ├── REPORT.md
-│   └── submissions/
-│       ├── team-members/
-│       └── community-contributions/
-│
 ├── CONTRIBUTING.md
+├── README.md     ← You are here!
 ├── requirements.txt
-└── README.md     ← You are here!
+├── doc/
+│   └── product_requirement_document.md
+├── internal_memory_db/
+│   ├── chroma.sqlite3
+│   └── be714d62-d67d-471f-9d64-28552256a2d0/
+├── src/
+│   ├── main.py
+│   ├── agents/
+│   │   ├── __init__.py
+│   │   ├── base.py
+│   │   ├── financial_analyst.py
+│   │   ├── financial_crew.py
+│   │   ├── manager.py
+│   │   ├── market_researcher.py
+│   │   ├── reporter.py
+│   │   └── prompts/
+│   │       ├── financial_analyst.md
+│   │       ├── market_researcher.md
+│   │       └── reporter.md
+│   ├── config/
+│   │   ├── __init__.py
+│   │   └── settings.py
+│   ├── tools/
+│   │   ├── __init__.py
+│   │   ├── financial_tools.py
+│   │   ├── memory_store.py
+│   │   ├── memory_tools.py
+│   │   └── internal_memory_db/
+│   │       └── chroma.sqlite3
+│   └── ui/
+│       ├── __init__.py
+│       ├── app.py
+│       ├── run_ui.py
+│       ├── components/
+│       │   ├── __init__.py
+│       │   ├── export.py
+│       │   ├── input.py
+│       │   └── output.py
+│       └── utils/
+│           ├── formatters.py
+│           └── state_manager.py
 ```
 
-This mirrors the layout of prior SDS projects for consistency
-  
-
----
+# Usage on local
+streamlit run .\src\ui\app.py
 
 # 🟢 Beginner Track — Single-Agent Market Research
 
